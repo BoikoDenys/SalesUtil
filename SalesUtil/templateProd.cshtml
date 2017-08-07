@@ -1,0 +1,436 @@
+@using RazorEngine
+@using RazorEngine.Templating
+@using SalesUtil
+@using System.Globalization
+@inherits TemplateBase<List<OppStatus>>
+
+<html>
+
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=windows-1251">
+    <meta name=Generator content="Microsoft Word 15 (filtered)">
+    <style>
+        <!--
+        /* Font Definitions */
+        @@font-face {
+            font-family: "Cambria Math";
+            panose-1: 2 4 5 3 5 4 6 3 2 4;
+        }
+
+        @@font-face {
+            font-family: Calibri;
+            panose-1: 2 15 5 2 2 2 4 3 2 4;
+        }
+
+        @@font-face {
+            font-family: ArialMT;
+        }
+        /* Style Definitions */
+        p.MsoNormal, li.MsoNormal, div.MsoNormal {
+            margin-top: 0cm;
+            margin-right: 0cm;
+            margin-bottom: 8.0pt;
+            margin-left: 0cm;
+            line-height: 105%;
+            font-size: 11.0pt;
+            font-family: "Calibri",sans-serif;
+        }
+
+        a:link, span.MsoHyperlink {
+            color: #0563C1;
+            text-decoration: underline;
+        }
+
+        a:visited, span.MsoHyperlinkFollowed {
+            color: #954F72;
+            text-decoration: underline;
+        }
+
+        .MsoChpDefault {
+            font-family: "Calibri",sans-serif;
+        }
+
+        .MsoPapDefault {
+            margin-bottom: 8.0pt;
+            line-height: 107%;
+        }
+
+        @@page WordSection1 {
+            size: 595.3pt 841.9pt;
+            margin: 42.5pt 42.5pt 42.5pt 70.85pt;
+        }
+
+        div.WordSection1 {
+            page: WordSection1;
+        }
+        -->
+    </style>
+
+</head>
+
+<body lang=EN-US link="#0563C1" vlink="#954F72">
+
+    <div class=WordSection1>
+
+        <p class=MsoNormal><span style='color:#1F497D'>Hi </span><span style='color:#1F497D'>@Model[0].CaseOwner.Split(' ')[0],</span></p>
+
+        <p class=MsoNormal><span style='color:#1F497D'>&nbsp;</span></p>
+
+        <p class=MsoNormal>
+            <span style='color:#1F497D'>
+                Here comes the list of your
+                opportunities with Estimated Close Date in <span>@DateTime.Today.ToString("MMMMM", CultureInfo.InvariantCulture)</span>.
+            </span>
+        </p>
+
+        <p class=MsoNormal>
+            <span style='color:#1F497D'>
+                Please update the following
+                information:
+            </span>
+        </p>
+
+        @foreach (OppStatus opp in @Model)
+        {
+            <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+                   style='border-collapse:collapse;border:none'>
+                @*Opportunity Number*@
+                <tr>
+                    <td width=185 valign=top style='width:155.7pt;border:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                        <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'>
+                            <b>
+                                <span style='color:#1F497D'>Opportunity Number</span>
+                            </b>
+                        </p>
+                    </td>
+                    <td width=381 valign=top style='width:325.75pt;border:solid windowtext 1.0pt;border-left:none;padding:0cm 5.4pt 0cm 5.4pt'>
+                        <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>@opp.CaseId</span></p>
+                    </td>
+                </tr>
+
+                @*Opportunity Name*@
+                <tr>
+                    <td width=185 valign=top style='width:155.7pt;border:solid windowtext 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt'>
+                        <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'>
+                            <b>
+                                <span style='color:#1F497D'>Opportunity Name</span>
+                            </b>
+                        </p>
+                    </td>
+                    <td width=381 valign=top style='width:325.75pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                        <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'>
+                            <span style='color:#1F497D'>@opp.CaseName</span><span style='color:#1F497D'> </span>@if (opp.IsNotEnglish())
+                            {<span style='color:#1F497D'>Please translate the opportunity name into English</span>}
+                        </p>
+                    </td>
+                </tr>
+
+                @*Customer*@
+                <tr>
+                    <td width=185 valign=top style='width:155.7pt;border:solid windowtext 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt'>
+                        <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'>
+                            <b>
+                                <span style='color:#1F497D'>Customer</span>
+                            </b>
+                        </p>
+                    </td>
+                    <td width=381 valign=top style='width:325.75pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                        <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>@opp.Customer</span></p>
+                    </td>
+                </tr>
+                @*Est. Close Date*@
+
+                <tr>
+                    <td width=185 valign=top style='width:155.7pt;border:solid windowtext 1.0pt;border-top:none;padding:0cm 5.4pt 0cm 5.4pt'>
+                        <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'>
+                            <b>
+                                <span style='color:#1F497D'>Est. Close Date</span>
+                            </b>
+                        </p>
+                    </td>
+                    <td width=381 valign=top style='width:325.75pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                        <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'>
+                            <span style='color:#1F497D'>@opp.EstCloseDate.ToString("dddd, dd MMMM yyyy", CultureInfo.InvariantCulture) </span>
+                            @if (opp.IsEstimateCloseDataValidError)
+                            {<b><span style='color:#FF0000'> (</span><span style='color:#FF0000'>is already overdue</span><span style='color:#FF0000'>)</span></b>}
+                            else
+                            { <span style='color:#1F497D'> (</span><span style='color:#1F497D'>. Make sure that you will close this case in time</span><span style='color:#1F497D'>)</span>}
+                        </p>
+                    </td>
+                </tr>
+            </table>
+
+            <p class=MsoNormal><span lang=UK>&nbsp;</span></p>
+
+            <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0 style='border-collapse:collapse;border:none'>
+                @*Description*@
+                @if (opp.Description.Equals(string.Empty) || (!opp.IsNotEnglish()))
+                {
+                    <tr>
+                        <td width=180 valign=top style='width:155.7pt;border:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                            <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'>
+                                <span style='color:#1F497D'>Description</span>
+                            </p>
+                        </td>
+
+                        <td width=385 valign=top style='width:325.75pt;border:solid windowtext 1.0pt;border-left:none;padding:0cm 5.4pt 0cm 5.4pt'>
+                            @if (opp.Description.Equals(string.Empty))
+                            {
+                                <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Fill out the description in English</span></p>
+                            }
+                            @if (!opp.IsNotEnglish())
+                            {
+                                <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Translate the description into English</span></p>
+                            }
+                        </td>
+                    </tr>
+                }
+                @*Currency*@
+                @if (opp.IsNOKWarning)
+                {
+                    <tr>
+                        <td width=180 valign=top style='width:155.7pt;border:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                            <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'>
+                                <span lang=RU style='color:#1F497D'>Currency</span>
+                            </p>
+                        </td>
+                        <td width=385 valign=top style='width:325.75pt;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                            <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Check if currency is really set in NOK</span></p>
+                        </td>
+                    </tr>
+                }
+                @*Opportunity Type*@
+                @if (opp.IsOpportunityTypeFieldNotEmptyError)
+                {
+                    <tr>
+                        <td width=180 valign=top style='width:155.7pt;border:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                            <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'>
+                                <span style='color:#1F497D'>Opportunity Type</span>
+                            </p>
+                        </td>
+                        <td width=385 valign=top style='width:325.75pt;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                            <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Please choose the Opportunity Type</span></p>
+                        </td>
+                    </tr>
+                }
+                @*Probability*@
+                @if (opp.IsProbabilityValidError)
+                {
+                    <tr>
+                        <td width=180 valign=top style='width:155.7pt;border:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                            <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'>
+                                <span style='color:#1F497D'>Probability</span>
+                            </p>
+                        </td>
+                        <td width=385 valign=top style='width:325.75pt;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                            <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Check if probability is 1% (process stage is @opp.ProcessStage)</span></p>
+                        </td>
+                    </tr>
+                }
+                @*Process Type*@
+                @if (opp.IsProcessTypeSelectedError || opp.IsProcessTypeCallOff)
+                {
+                    <tr>
+                        <td width=180 valign=top style='width:155.7pt;border:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                            <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'>
+                                <span style='color:#1F497D'>Process Type</span>
+                            </p>
+                        </td>
+                        <td width=385 valign=top style='width:325.75pt;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                            @if (opp.IsProcessTypeSelectedError)
+                            { <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Please select process type</span></p>}
+                            @if (opp.IsProcessTypeCallOff)
+                            { <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Check if Process type is really call-off (can be choosen only if you have framework agreement)</span></p>}
+                        </td>
+                    </tr>
+                }
+                @*Process Stage*@
+                @if (opp.IsProcessStageIdentified)
+                {
+                    <tr>
+                        <td width=180 valign=top style='width:155.7pt;border:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                            <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'>
+                                <span style='color:#1F497D'>Process Stage</span>
+                            </p>
+                        </td>
+                        <td width=385 valign=top style='width:325.75pt;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                            <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Check if Process Stage is still Identified (not correspond to estimated close date.)</span></p>
+                        </td>
+                    </tr>
+                }
+
+                @*Bad product*@
+                @if (opp.IsBadProduct)
+                {
+                    <tr>
+                        <td width=180 valign=top style='width:155.7pt;border:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                            <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'>
+                                <span style='color:#1F497D'>Opportunity products status</span>
+                            </p>
+                        </td>
+                        <td width=385 valign=top style='width:325.75pt;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                            <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>This opportunity is lined to the wrong products. Please correct.</span></p>
+                        </td>
+                    </tr>
+                }
+
+                @*Bad DU*@
+                @if (opp.IsBadDU)
+                {
+                    <tr>
+                        <td width=180 valign=top style='width:155.7pt;border:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                            <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'>
+                                <span style='color:#1F497D'>Opportunity products status</span>
+                            </p>
+                        </td>
+                        <td width=385 valign=top style='width:325.75pt;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                            <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>This opportunity is lined to the wrong Delivery Unit. Please correct.</span></p>
+                        </td>
+                    </tr>
+                }
+                @*Products*@
+                @foreach (OppProductStatus product in opp.Products)
+                {
+                    if (product.HasErrors())
+                    {
+                        @*Products*@
+                        <tr>
+                            <td width=180 valign=top style='width:155.7pt;border:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                                <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'>
+                                    <span style='color:#1F497D'><b>Product #@(opp.Products.IndexOf(product)+1)</b></span>
+                                </p>
+                            </td>
+                            <td width=385 valign=top style='width:325.75pt;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                                <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>@product.Product</span></p>
+                            </td>
+                        </tr>
+
+                        @*Margin*@
+                        if (product.IsMarginFieldEmptyError || product.IsMarginValidError)
+                        {
+                            <tr>
+                                <td width=180 valign=top style='width:155.7pt;border:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                                    <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'>
+                                        <span style='color:#1F497D'>Margin</span>
+                                    </p>
+                                </td>
+                                <td width=385 valign=top style='width:325.75pt;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                                    @if (product.IsMarginFieldEmptyError)
+                                    { <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Fill out the Margin</span></p>}
+                                    @if (product.IsMarginValidError)
+                                    { <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Check if Margin = Revenue and Revenue is not 0</span></p> }
+                                </td>
+                            </tr>
+                        }
+
+                        @*@Number of Periods*@
+                        if (product.IsNumberOfPeriodsFieldEmptyError || product.IsNumberOfPeriodsFieldNotValid)
+                        {
+                            <tr>
+                                <td width=180 valign=top style='width:155.7pt;border:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                                    <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'>
+                                        <span style='color:#1F497D'>Number of Periods</span>
+                                    </p>
+                                </td>
+                                <td width=385 valign=top style='width:325.75pt;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                                    @if (product.IsNumberOfPeriodsFieldEmptyError)
+                                    { <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Choose number of periods.</span></p>}
+                                    @if (product.IsNumberOfPeriodsFieldNotValid)
+                                    { <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Check if the number of periods is 1 month only.</span></p>}
+                                </td>
+                            </tr>
+                        }
+
+                        @*Revenue Start Date*@
+                        if (product.IsRevenueStartEmptyError || product.IsRevanueStartDateValidError || product.IsRevanueStartDateOverdueError)
+                        {
+                            <tr>
+                                <td width=180 valign=top style='width:155.7pt;border:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                                    <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'>
+                                        <span style='color:#1F497D'>Revenue Start Date</span>
+                                    </p>
+                                </td>
+
+                                <td width=385 valign=top style='width:325.75pt;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                                    @if (product.IsRevenueStartEmptyError)
+                                    { <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Choose estimate delivery date.</span></p> }
+                                    @if (product.IsRevanueStartDateValidError)
+                                    { <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Revenue Start Date before Estimate close date</span></p> }
+                                    @if (product.IsRevanueStartDateOverdueError)
+                                    { <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Revenue Start Date is already overdue</span></p> }
+                                </td>
+
+                            </tr>
+                        }
+                        @*Delivery unit*@
+                        <tr>
+                            <td width=180 valign=top style='width:155.7pt;border:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                                <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'>
+                                    <span style='color:#1F497D'>Delivery unit</span>
+                                </p>
+                            </td>
+                            <td width=385 valign=top style='width:325.75pt;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                                <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>@product.DeliveryUnit</span></p>
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        }
+        <p class=MsoNormal><span style='color:#1F497D'>&nbsp;</span></p>
+
+        <p class=MsoNormal><span style='color:#1F497D'>Thank you in advance!</span></p>
+
+        <p class=MsoNormal><span style='color:#1F497D'>&nbsp;</span></p>
+
+        <p class=MsoNormal><span style='color:#1F497D'>Regards,</span></p>
+
+        <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:normal;text-autospace:none'>
+            <b>
+                <span style='font-family:"Arial",sans-serif;color:#00ADD3'>Anastasiya Doroshenko</span>
+            </b>
+        </p>
+
+        <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:normal;text-autospace:none'>
+            <span style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#063954'>Sales Operations and Bid Support</span>
+        </p>
+
+        <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:normal;text-autospace:none'>
+            <span lang=UK>
+                <a href="mailto:anastasiya.doroshenko@evry.com">
+                    <span lang=EN-US style='font-size:9.0pt;font-family:"Arial",sans-serif'>anastasiya.doroshenko@evry.com</span>
+                </a>
+            </span>
+        </p>
+
+        <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:normal;text-autospace:none'>
+            <b>
+                <span style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#063954'>M</span>
+            </b><span style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#063954'>+38&nbsp;067&nbsp;214 1021</span>
+        </p>
+        @*Dynamic picture**@
+        <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:normal;text-autospace:none'>
+            <span style='color:#1F497D'>
+                <img border=0 width=73
+                     height=38 src="./image001.png">
+            </span>
+        </p>
+
+        <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;line-height:normal'>
+            <b>
+                <span lang=NO-BOK style='font-size:9.0pt;font-family:"Arial",sans-serif;color:#00ADD3'>
+                    <br>
+                    evry.com
+                </span>
+            </b>
+        </p>
+
+        <p class=MsoNormal><span lang=UK>&nbsp;</span></p>
+
+        <p class=MsoNormal><span lang=UK>&nbsp;</span></p>
+
+    </div>
+
+</body>
+
+</html>
