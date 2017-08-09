@@ -7,6 +7,8 @@ using System.Configuration;
 
 namespace SalesUtil
 {
+    public enum Areas { SE, NO }
+
     public class Program
     {
         public static string TempatePath;
@@ -21,6 +23,7 @@ namespace SalesUtil
         public static string EmlSubject;
         public static string GoogleKey;
         public static Formats Format;
+        public static Areas Localization;
 
         static void Main(string[] args)
         {
@@ -80,15 +83,28 @@ namespace SalesUtil
             GoogleKey = ConfigurationManager.AppSettings["GoogleKey"];
 
             EmlSubject = ConfigurationManager.AppSettings["Subject"];
-            var f = ConfigurationManager.AppSettings["Format"];
-            if (f.Equals("word")) Format = Formats.word;
+            var s = ConfigurationManager.AppSettings["Format"];
+            if (s.Equals("word")) Format = Formats.word;
             else
-                if (f.Equals("eml")) Format = Formats.eml;
+                if (s.Equals("eml")) Format = Formats.eml;
+            else
+                if (s.Equals("none")) Format = Formats.none;
             else
             {
-                Console.WriteLine("Format option is not configure. Default value 'word' is being used");
+                Console.WriteLine("Format option is not configured. Default value 'word' is being used");
                 Format = Formats.word;
             }
+
+            var l = ConfigurationManager.AppSettings["BusinessAreaApplication"];
+            if (l.Equals("SE")) Localization = Areas.SE;
+            else
+                if (l.Equals("NO")) Localization = Areas.NO;
+            else
+            {
+                Console.WriteLine("Localization option is not configured. Default value 'SE' is being used.");
+                Localization = Areas.SE;
+            }
+
         }
     }
 }

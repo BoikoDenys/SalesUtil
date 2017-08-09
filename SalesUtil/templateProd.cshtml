@@ -119,8 +119,8 @@
                     </td>
                     <td width=381 valign=top style='width:325.75pt;border-top:none;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
                         <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'>
-                            <span style='color:#1F497D'>@opp.CaseName</span><span style='color:#1F497D'> </span>@if (opp.IsNotEnglish())
-                            {<span style='color:#1F497D'>Please translate the opportunity name into English</span>}
+                            <span style='color:#1F497D'>@opp.CaseName</span><span style='color:#1F497D'> </span>@if (opp.IsNotCaseNameEnglish)
+                            {<span style='color:#1F497D'>Please translate the opportunity name into English.</span>}
                         </p>
                     </td>
                 </tr>
@@ -178,7 +178,8 @@
                             {
                                 <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Fill out the description in English</span></p>
                             }
-                            @if (!opp.IsNotEnglish())
+                            else
+                            if (!opp.IsNotDescriptionEnglish)
                             {
                                 <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Translate the description into English</span></p>
                             }
@@ -297,7 +298,7 @@
                         <tr>
                             <td width=180 valign=top style='width:155.7pt;border:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
                                 <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'>
-                                    <span style='color:#1F497D'><b>Product #@(opp.Products.IndexOf(product)+1)</b></span>
+                                    <span style='color:#1F497D'><b>Product #@(opp.Products.IndexOf(product) + 1)</b></span>
                                 </p>
                             </td>
                             <td width=385 valign=top style='width:325.75pt;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
@@ -306,63 +307,63 @@
                         </tr>
 
                         @*Margin*@
-                        if (product.IsMarginFieldEmptyError || product.IsMarginValidError)
-                        {
-                            <tr>
-                                <td width=180 valign=top style='width:155.7pt;border:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-                                    <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'>
-                                        <span style='color:#1F497D'>Margin</span>
-                                    </p>
-                                </td>
-                                <td width=385 valign=top style='width:325.75pt;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-                                    @if (product.IsMarginFieldEmptyError)
-                                    { <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Fill out the Margin</span></p>}
-                                    @if (product.IsMarginValidError)
-                                    { <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Check if Margin = Revenue and Revenue is not 0</span></p> }
-                                </td>
-                            </tr>
-                        }
+                if (product.IsMarginFieldEmptyError || product.IsMarginValidError)
+                {
+                    <tr>
+                        <td width=180 valign=top style='width:155.7pt;border:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                            <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'>
+                                <span style='color:#1F497D'>Margin</span>
+                            </p>
+                        </td>
+                        <td width=385 valign=top style='width:325.75pt;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                            @if (product.IsMarginFieldEmptyError)
+                            { <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Fill out the Margin</span></p>}
+                            @if (product.IsMarginValidError)
+                            { <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Check if Margin = Revenue and Revenue is not 0</span></p> }
+                        </td>
+                    </tr>
+                }
 
-                        @*@Number of Periods*@
-                        if (product.IsNumberOfPeriodsFieldEmptyError || product.IsNumberOfPeriodsFieldNotValid)
-                        {
-                            <tr>
-                                <td width=180 valign=top style='width:155.7pt;border:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-                                    <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'>
-                                        <span style='color:#1F497D'>Number of Periods</span>
-                                    </p>
-                                </td>
-                                <td width=385 valign=top style='width:325.75pt;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-                                    @if (product.IsNumberOfPeriodsFieldEmptyError)
-                                    { <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Choose number of periods.</span></p>}
-                                    @if (product.IsNumberOfPeriodsFieldNotValid)
-                                    { <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Check if the number of periods is 1 month only.</span></p>}
-                                </td>
-                            </tr>
-                        }
+                @*@Number of Periods*@
+                if (product.IsNumberOfPeriodsFieldEmptyError || product.IsNumberOfPeriodsFieldNotValid)
+                {
+                    <tr>
+                        <td width=180 valign=top style='width:155.7pt;border:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                            <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'>
+                                <span style='color:#1F497D'>Number of Periods</span>
+                            </p>
+                        </td>
+                        <td width=385 valign=top style='width:325.75pt;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                            @if (product.IsNumberOfPeriodsFieldEmptyError)
+                            { <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Choose number of periods.</span></p>}
+                            @if (product.IsNumberOfPeriodsFieldNotValid)
+                            { <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Check if the number of periods is 1 month only.</span></p>}
+                        </td>
+                    </tr>
+                }
 
-                        @*Revenue Start Date*@
-                        if (product.IsRevenueStartEmptyError || product.IsRevanueStartDateValidError || product.IsRevanueStartDateOverdueError)
-                        {
-                            <tr>
-                                <td width=180 valign=top style='width:155.7pt;border:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-                                    <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'>
-                                        <span style='color:#1F497D'>Revenue Start Date</span>
-                                    </p>
-                                </td>
+                @*Revenue Start Date*@
+                if (product.IsRevenueStartEmptyError || product.IsRevanueStartDateValidError || product.IsRevanueStartDateOverdueError)
+                {
+                    <tr>
+                        <td width=180 valign=top style='width:155.7pt;border:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                            <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'>
+                                <span style='color:#1F497D'>Revenue Start Date</span>
+                            </p>
+                        </td>
 
-                                <td width=385 valign=top style='width:325.75pt;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
-                                    @if (product.IsRevenueStartEmptyError)
-                                    { <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Choose estimate delivery date.</span></p> }
-                                    @if (product.IsRevanueStartDateValidError)
-                                    { <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Revenue Start Date before Estimate close date</span></p> }
-                                    @if (product.IsRevanueStartDateOverdueError)
-                                    { <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Revenue Start Date is already overdue</span></p> }
-                                </td>
+                        <td width=385 valign=top style='width:325.75pt;border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
+                            @if (product.IsRevenueStartEmptyError)
+                            { <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Choose estimate delivery date.</span></p> }
+                            @if (product.IsRevanueStartDateValidError)
+                            { <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Revenue Start Date before Estimate close date</span></p> }
+                            @if (product.IsRevanueStartDateOverdueError)
+                            { <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'><span style='color:#1F497D'>Revenue Start Date is already overdue</span></p> }
+                        </td>
 
-                            </tr>
-                        }
-                        @*Delivery unit*@
+                    </tr>
+                }
+                @*Delivery unit*@
                         <tr>
                             <td width=180 valign=top style='width:155.7pt;border:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
                                 <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt'>
