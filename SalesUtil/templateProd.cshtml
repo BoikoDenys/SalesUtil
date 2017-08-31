@@ -164,7 +164,7 @@
 
             <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0 style='border-collapse:collapse;border:none'>
                 @*Description*@
-                @if (opp.Description.Equals(string.Empty) || (!opp.IsNotEnglish()))
+                @if (opp.Description.Equals(string.Empty) || (opp.IsNotDescriptionEnglish))
                 {
                     <tr>
                         <td width=180 valign=top style='width:155.7pt;border:solid windowtext 1.0pt;padding:0cm 5.4pt 0cm 5.4pt'>
