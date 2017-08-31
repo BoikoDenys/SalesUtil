@@ -128,7 +128,7 @@ namespace SalesUtil
             string template = File.ReadAllText(Program.TempatePath);
             var oppByOwner = from p in opportunities
                              where p.HasErrors() // Only cases with errors (or warnings)
-                             group p by p.CaseId into g
+                             group p by p.CaseOwner into g
                              select g.ToList<OppStatus>();
 
             List<Tuple<string, List<OppStatus>>> result = new List<Tuple<string, List<OppStatus>>>();

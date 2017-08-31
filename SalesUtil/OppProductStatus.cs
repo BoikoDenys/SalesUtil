@@ -31,7 +31,6 @@ namespace SalesUtil
         public string DeliveryUnit;
         public string RevenueType;
 
-
         public override void Init(Func<string, string> Getter)
         {
             GetValue = Getter;
@@ -100,13 +99,12 @@ namespace SalesUtil
 
         }
 
-
         public bool IsRevanueStartDateValidError
         {
             get
             {
                 if (RevenueStartDate.HasValue)
-                    return DateTime.Compare(RevenueStartDate.Value, EstCloseDate) >= 0;
+                    return DateTime.Compare(EstCloseDate, RevenueStartDate.Value) >= 0;
                 return false;
             }
         }
@@ -133,9 +131,6 @@ namespace SalesUtil
         {
             get
             {
-                if (Revenue == 0 || Margin == 0)
-                    return true;
-
                 return Revenue <= Margin;
             }
         }
@@ -189,7 +184,16 @@ namespace SalesUtil
                 return false;
             }
         }
-        
+
+        public bool IsNOKWarning
+        {
+            get
+            {
+                if (Program.Localization == Areas.NO)
+                    return false;
+                return Currency.Equals("Norsk krone");
+            }
+        }
 
         public bool IsDeliveryUnitFieldNotEmptyError
         {
@@ -230,6 +234,7 @@ namespace SalesUtil
                 IsRevenueStartEmptyError ||
                 IsProductDiscontinuedError ||
                 IsDeliverUnitTerminatedError ||
+                IsNOKWarning ||
                 IsNumberOfPeriodsFieldNotValid;
         }
     }

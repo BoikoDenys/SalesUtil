@@ -23,7 +23,7 @@ namespace SalesUtil
         public string Customer;
         public DateTime EstCloseDate;
         public string Description;
-        public string Currency;
+        
         public string CaseType;
         public int Probability;
         public string ProcessType;
@@ -69,8 +69,7 @@ namespace SalesUtil
             CaseName = commonData.CaseName;
             Customer = commonData.Customer;
             EstCloseDate = commonData.EstCloseDate;
-            Description = commonData.Description;
-            Currency = commonData.Currency;
+            Description = commonData.Description;            
             CaseType = commonData.CaseType;
             Probability = commonData.Probability;
             ProcessType = commonData.ProcessType;
@@ -136,11 +135,9 @@ namespace SalesUtil
         {
             get
             {
-                bool isProbabilityValid = Probability == 1;
-                string stage = ProcessStage;
-                bool isStageValid = !string.IsNullOrEmpty(stage) || !stage.Equals("Identified(to be validated)");
-
-                return isProbabilityValid && isStageValid;
+                return Probability == 1
+                    &&
+                    !ProcessStage.Equals("Identified(to be validated)");
             }
         }
 
@@ -148,7 +145,7 @@ namespace SalesUtil
         {
             get
             {
-                return !string.IsNullOrEmpty(CaseType);
+                return string.IsNullOrEmpty(CaseType);
             }
         }
 
@@ -156,9 +153,7 @@ namespace SalesUtil
         {
             get
             {
-                if (Program.Localization == Areas.NO)
-                    return false;
-                return Currency.Equals("Norsk krone");
+                return Products.Where(x => x.IsNOKWarning).Any();
             }
         }
 
@@ -166,19 +161,13 @@ namespace SalesUtil
         {
             get
             {
-                return ProcessStage.Equals("Identified");
+                return ProcessStage.Contains("Identified");
             }
         }
 
         public bool IsBadProduct { get; set; }
 
         public bool IsBadDU { get; set; }
-
-        //TODO: refactor, revenue factor is no longer assessed!
-        public bool IsNotEnglish()
-        {
-            return true;
-        }
 
         public bool IsNotCaseNameEnglish { get; private set; } = false;
 
