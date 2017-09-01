@@ -50,7 +50,7 @@ namespace SalesUtil
                 var products = inputContext.Factory();
                 opportunities = OppStatus.Factory(products);
 
-                var badProducts = badDUsContext.Factory();
+                var badProducts = badProductsContext.Factory();
                 var badDUs = badDUsContext.Factory();
 
                 foreach (var opp in opportunities)

@@ -41,7 +41,14 @@ namespace SalesUtil
                     "MyMainDomain", null,
                     current.SetupInformation, new PermissionSet(PermissionState.Unrestricted),
                     strongNames);
-                var exitCode = domain.ExecuteAssembly(Assembly.GetExecutingAssembly().Location);
+                try
+                {
+                    var exitCode = domain.ExecuteAssembly(Assembly.GetExecutingAssembly().Location);
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e);
+                }
                 // RazorEngine will cleanup. 
                 AppDomain.Unload(domain);
                 return;
