@@ -137,7 +137,7 @@ namespace SalesUtil
             {
                 return Probability == 1
                     &&
-                    !ProcessStage.Equals("Identified(to be validated)");
+                    !ProcessStage.Contains("Identified");
             }
         }
 

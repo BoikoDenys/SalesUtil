@@ -104,7 +104,7 @@ namespace SalesUtil
             get
             {
                 if (RevenueStartDate.HasValue)
-                    return DateTime.Compare(EstCloseDate, RevenueStartDate.Value) >= 0;
+                    return EstCloseDate >= RevenueStartDate.Value;
                 return false;
             }
         }
@@ -114,7 +114,7 @@ namespace SalesUtil
             get
             {
                 if (RevenueStartDate.HasValue)
-                    return DateTime.Compare(RevenueStartDate.Value, DateTime.Today) >= 0;
+                    return RevenueStartDate.Value < DateTime.Today;
                 return false;
             }
         }
@@ -195,7 +195,7 @@ namespace SalesUtil
             }
         }
 
-        public bool IsDeliveryUnitFieldNotEmptyError
+        public bool IsDeliveryUnitFieldEmptyError
         {
             get
             {
@@ -230,7 +230,7 @@ namespace SalesUtil
                 IsRevenueTypeFieldEmptyError ||
                 IsNumberOfPeriodsFieldEmptyError ||
                 IsRevanueStartDateOverdueError ||
-                IsDeliveryUnitFieldNotEmptyError ||
+                IsDeliveryUnitFieldEmptyError ||
                 IsRevenueStartEmptyError ||
                 IsProductDiscontinuedError ||
                 IsDeliverUnitTerminatedError ||
